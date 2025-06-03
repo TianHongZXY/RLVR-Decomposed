@@ -2,12 +2,12 @@
 
 # The Surprising Effectiveness of Negative Reinforcement in LLM Reasoning
 
-[![Paper](https://img.shields.io/badge/paper-A42C25?style=for-the-badge&logo=arxiv&logoColor=white)](./the_surprising_effectiveness_of_negative_reinforcement_in_llm_reasoning.pdf)[![Hugging Face](https://img.shields.io/badge/RLVR_Decomposed-fcd022?style=for-the-badge&logo=Huggingface&logoColor=000)](https://huggingface.co/collections/TianHongZXY/rlvr-decomposed-683c0cd7151b769d8ea5915c)
+[![Paper](https://img.shields.io/badge/paper-A42C25?style=for-the-badge&logo=arxiv&logoColor=white)](https://arxiv.org/abs/2506.01347)[![Hugging Face](https://img.shields.io/badge/RLVR_Decomposed-fcd022?style=for-the-badge&logo=Huggingface&logoColor=000)](https://huggingface.co/collections/TianHongZXY/rlvr-decomposed-683c0cd7151b769d8ea5915c)
 
 </div>
 
 ## News
-- **[2025/06/01]** We release our [paper](./the_surprising_effectiveness_of_negative_reinforcement_in_llm_reasoning.pdf) and code. 🚀
+- **[2025/06/01]** We release our [paper](https://arxiv.org/pdf/2506.01347) and code. 🚀
 ## Quick Start
 ### Installation
 Our code is implemented based on [verl](https://github.com/volcengine/verl). We recommend to use docker image provided by verl, please refer to their [documents](https://verl.readthedocs.io/en/v0.2.x/start/install.html).
@@ -55,7 +55,7 @@ If you find our paper or code useful, please consider cite our work:
 @article{zhu2025rlvr-decomposed,
   title={The Surprising Effectiveness of Negative Reinforcement in LLM Reasoning},
   author={Zhu, Xinyu and Xia, Mengzhou and Wei, Zhepei and Chen, Wei-Lin and Chen, Danqi and Meng, Yu},
-  journal={arXiv preprint arXiv:xxxx.xxxxx},
+  journal={arXiv preprint arXiv:2506.01347},
   year={2025}
 }
 ```
