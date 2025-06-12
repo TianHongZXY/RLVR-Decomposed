@@ -31,7 +31,7 @@ def filter_dataset(dataset, question_ids):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--local_dir', default='~/data/math')
+    parser.add_argument('--local_dir', default='./data/math')
     parser.add_argument('--hdfs_dir', default=None)
 
     args = parser.parse_args()
