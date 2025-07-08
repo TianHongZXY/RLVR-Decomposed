@@ -89,7 +89,8 @@ class RLHFDataset(Dataset):
                  chat_template_func=None,
                  return_raw_chat=False,
                  truncation='error',
-                 filter_overlong_prompts=False):
+                 filter_overlong_prompts=False,
+                 prompt_template_type='qwen'):
         if not isinstance(parquet_files, (List, ListConfig)):
             parquet_files = [parquet_files]
 
@@ -103,6 +104,7 @@ class RLHFDataset(Dataset):
         self.image_key = image_key
         self.max_prompt_length = max_prompt_length
         self.filter_prompts = filter_prompts
+        self.prompt_template_type = prompt_template_type
 
         self.return_raw_chat = return_raw_chat
         self.chat_template_func = chat_template_func
@@ -131,13 +133,26 @@ class RLHFDataset(Dataset):
 
         print(f'dataset len: {len(self.dataframe)}')
 
+        if self.prompt_template_type == 'qwen':
+            self.prompt_template = "<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\n{input}\nPlease reason step by step, and put your final answer within \\boxed{}.<|im_end|>\n<|im_start|>assistant\n"
+        elif self.prompt_template_type == "simple":
+            self.prompt_template = "Question:\n{input}\nAnswer:\nLet's think step by step.\n"
+        elif self.prompt_template_type == "qwen3_no_thinking":
+            self.prompt_template = "<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\n{input}\nPlease reason step by step, and put your final answer within \\boxed{}.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n"
+        elif self.prompt_template_type == "llama":
+            self.prompt_template = "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n{input}\nPlease reason step by step, and put your final answer within \\boxed{}.<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n"
+        else:
+            raise ValueError(f"Invalid prompt template: {self.prompt_template_type}")
+        print(f"prompt_template: {self.prompt_template}")
+
         # filter out too long prompts
         if self.filter_overlong_prompts:
             tokenizer = self.tokenizer
             prompt_key = self.prompt_key
             self.dataframe = self.dataframe[self.dataframe.apply(lambda doc: len(
-                tokenizer.apply_chat_template(doc[prompt_key], add_generation_prompt=True)) <= self.max_prompt_length,
-                                                                 axis=1)]
+                                tokenizer.tokenize(self.prompt_template.replace("{input}", doc[prompt_key][0]['content']))
+                ) <= self.max_prompt_length,
+                                                                                axis=1)]
 
             print(f'filter dataset len: {len(self.dataframe)}')
 
@@ -161,11 +176,7 @@ class RLHFDataset(Dataset):
 
         chat = row_dict.pop(self.prompt_key)
 
-        qwen_boxed_prompt = "<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\n{input}\nPlease reason step by step, and put your final answer within \\boxed{}.<|im_end|>\n<|im_start|>assistant\n"
-        prompt_with_chat_template = qwen_boxed_prompt.replace("{input}", chat[0]['content'])
-        # For Qwen3, we need to add <think>\n\n</think>\n to the prompt
-        # qwen_boxed_prompt_no_thinking = "<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\n{input}\nPlease reason step by step, and put your final answer within \\boxed{}.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n"
-        # prompt_with_chat_template = qwen_boxed_prompt_no_thinking.replace("{input}", chat[0]['content'])
+        prompt_with_chat_template = self.prompt_template.replace("{input}", chat[0]['content'])
 
         if self.image_key in row_dict:  # expand image token
             raw_prompt = prompt_with_chat_template.replace('<image>', '<|vision_start|><|image_pad|><|vision_end|>')

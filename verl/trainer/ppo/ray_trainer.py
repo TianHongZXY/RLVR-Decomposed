@@ -626,6 +626,7 @@ class RayPPOTrainer(object):
                                          return_raw_chat=self.config.data.get('return_raw_chat', False),
                                          truncation='error',
                                          filter_overlong_prompts=self.config.data.filter_overlong_prompts,
+                                         prompt_template_type=self.config.data.prompt_template_type,
                                          )
         # use sampler for better ckpt resume
         if self.config.data.shuffle:
