@@ -2,7 +2,9 @@
 
 # The Surprising Effectiveness of Negative Reinforcement in LLM Reasoning
 
-[![Paper](https://img.shields.io/badge/paper-A42C25?style=for-the-badge&logo=arxiv&logoColor=white)](https://arxiv.org/abs/2506.01347)[![Hugging Face](https://img.shields.io/badge/RLVR_Decomposed-fcd022?style=for-the-badge&logo=Huggingface&logoColor=000)](https://huggingface.co/collections/TianHongZXY/rlvr-decomposed-683c0cd7151b769d8ea5915c)
+[![Paper](https://img.shields.io/badge/paper-A42C25?style=for-the-badge&logo=arxiv&logoColor=white)](https://arxiv.org/abs/2506.01347)
+[![Twitter](https://img.shields.io/badge/Twitter-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/tianhongzxy/status/1929596099154633036)
+[![Hugging Face](https://img.shields.io/badge/RLVR_Decomposed-fcd022?style=for-the-badge&logo=Huggingface&logoColor=000)](https://huggingface.co/collections/TianHongZXY/rlvr-decomposed-683c0cd7151b769d8ea5915c)
 
 </div>
 
