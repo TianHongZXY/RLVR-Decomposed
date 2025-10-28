@@ -9,6 +9,8 @@
 </div>
 
 ## News
+- **[2025/10/27]** An updated version is out! It includes additional experiments and results (Llama model, λ ablation, and more). Check it out [here](https://arxiv.org/pdf/2506.01347)! ✨
+- **[2025/09/18]** Our paper is accepted to NeurIPS 2025! 🎉
 - **[2025/06/01]** We release our [paper](https://arxiv.org/pdf/2506.01347) and code. 🚀
 ## Quick Start
 ### Installation
@@ -49,7 +51,7 @@ Calculate Pass@k: `python calculate_metrics --file_path <file_to_evaluate>`
 - Out-of-Memory error: Decrease `actor_rollout_ref.actor.ppo_max_token_len_per_gpu`, `actor_rollout_ref.rollout.log_prob_max_token_len_per_gpu`, `actor_rollout_ref.ref.log_prob_max_token_len_per_gpu`
 
 - Frozen after `Started a local Ray instance.`: Add `num_cpus=N` to `ray.init()` in `verl/trainer/main_ppo.py`,  for example, `ray.init(num_cpus=4, runtime_env={'env_vars': {'TOKENIZERS_PARALLELISM': 'true', 'NCCL_DEBUG': 'WARN'}})`
- 
+
  ## Citation
 
 If you find our paper or code useful, please consider cite our work:
